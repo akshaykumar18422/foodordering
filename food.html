@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Cafeteria - Food Ordering</title>
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f8f9fa;
+      color: #333;
+    }
+
+    header {
+      background: #ff5722;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
+    .menu, .cart {
+      flex: 1;
+      min-width: 300px;
+      padding: 15px;
+    }
+    .menu h2, .cart h2 {
+      margin-bottom: 15px;
+      color: #ff5722;
+    }
+
+    .item {
+      background: white;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    button {
+      background: #ff5722;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #e64a19;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    .cart li {
+      background: #fff;
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .total {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>🍔 College Cafeteria - Food Ordering</header>
+
+  <div class="container">
+    <!-- Menu Section -->
+    <div class="menu">
+      <h2>Menu</h2>
+      <div class="item">
+        <span>Veg Burger - ₹50</span>
+        <button onclick="addToCart('Veg Burger', 50)">Add</button>
+      </div>
+      <div class="item">
+        <span>Cheese Pizza - ₹120</span>
+        <button onclick="addToCart('Cheese Pizza', 120)">Add</button>
+      </div>
+      <div class="item">
+        <span>French Fries - ₹40</span>
+        <button onclick="addToCart('French Fries', 40)">Add</button>
+      </div>
+      <div class="item">
+        <span>Cold Coffee - ₹60</span>
+        <button onclick="addToCart('Cold Coffee', 60)">Add</button>
+      </div>
+       <div class="item">
+        <span>Chicken briyani- ₹130</span>
+        <button onclick="addToCart('Chicken briyani-', 130)">Add</button>
+      </div>
+       <div class="item">
+        <span>Chicken dum briyani- ₹130</span>
+        <button onclick="addToCart('Chicken dum briyani-', 130)">Add</button>
+      </div>
+      <div class="item">
+        <span>mandi- ₹150</span>
+        <button onclick="addToCart('mandi-', 150)">Add</button>
+      </div>
+      <div class="item">
+        <span>chicken 65- ₹100</span>
+        <button onclick="addToCart('chicken 65', 100)">Add</button>
+      </div>
+      <div class="item">
+        <span>chicken tandhori- ₹350</span>
+        <button onclick="addToCart('chicken tandhori', 350)">Add</button>
+      </div>
+    </div>
+
+    <!-- Cart Section -->
+    <div class="cart">
+      <h2>🛒 Your Cart</h2>
+      <ul id="cartItems"></ul>
+      <div class="total">Total: ₹<span id="cartTotal">0</span></div>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+    let total = 0;
+
+    function addToCart(item, price) {
+      cart.push({ item, price });
+      total += price;
+      displayCart();
+    }
+
+    function displayCart() {
+      let cartList = document.getElementById("cartItems");
+      cartList.innerHTML = "";
+      cart.forEach((c, index) => {
+        cartList.innerHTML += `<li>${c.item} - ₹${c.price} 
+          <button onclick="removeFromCart(${index})">X</button></li>`;
+      });
+      document.getElementById("cartTotal").innerText = total;
+    }
+
+    function removeFromCart(index) {
+      total -= cart[index].price;
+      cart.splice(index, 1);
+      displayCart();
+    }
+  </script>
+
+</body>
+</html>
